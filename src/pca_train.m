@@ -1,4 +1,4 @@
-function [coeff, score, latent] = pca_train(train_imgs, norm_size)
+function model = pca_train(train_imgs, norm_size)
     dim = prod(norm_size);
     len = length(train_imgs);
 
@@ -9,6 +9,8 @@ function [coeff, score, latent] = pca_train(train_imgs, norm_size)
     end
     [coeff, score, latent] = pca(x);
 
-    % Construct sub-space.
-    % Keep the whole space for now.
+    model = struct('norm_size', norm_size, ...
+                   'coeff', coeff, ...
+                   'score', score, ...
+                   'latent', latent);
 end
