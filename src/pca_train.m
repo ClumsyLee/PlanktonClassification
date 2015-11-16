@@ -1,4 +1,4 @@
-function model = pca_train(train_imgs, norm_size)
+function model = pca_train(train_imgs, norm_size, threshold)
     dim = prod(norm_size);
     len = length(train_imgs);
 
@@ -12,5 +12,6 @@ function model = pca_train(train_imgs, norm_size)
     model = struct('norm_size', norm_size, ...
                    'coeff', coeff, ...
                    'score', score, ...
-                   'latent', latent);
+                   'latent', latent, ...
+                   'threshold', threshold);
 end
