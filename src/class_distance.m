@@ -1,11 +1,8 @@
 function distance = class_distance(img, model)
     img = imresize(img, model.norm_size);
-    img = img(:);
+    img = double(img(:));
+    img = img / norm(img);  % Normalize the energy.
 
-    space = model.score(:, model.latent < model.threshold);
-    for col = 1:size(space, 2)
-        space(:, col) = space(:, col) / norm(space(:, col));
-    end
-
-    distance = norm(space \ double(img));
+    space = model.score(:, model.latent >= model.threshold);
+    distance = sqrt(abs(1 - norm(space \ img)));
 end
