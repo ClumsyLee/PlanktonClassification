@@ -1,9 +1,9 @@
 function varargout = eigen_imgs(model)
-    len = size(model.score, 2);
+    len = size(model.eigenvectors, 2);
     eigen_imgs = cell(len, 1);
 
     for k = 1:len
-        eigen_imgs{k} = reshape(model.score(:, k), model.norm_size);
+        eigen_imgs{k} = reshape(model.eigenvectors(:, k), model.norm_size);
     end
 
     if ~nargout
@@ -18,7 +18,7 @@ function varargout = eigen_imgs(model)
             limit = max(max(abs(img)));
 
             imshow(mat2gray(img, [-limit, limit]));
-            title(['#' int2str(k) ', ' num2str(model.latent(k))]);
+            title(['#' int2str(k) ', ' num2str(model.eigenvalues(k))]);
         end
     else
         varargout{1} = eigen_imgs;
