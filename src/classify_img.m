@@ -1,4 +1,4 @@
-function name = classify(img, models)
+function name = classify_img(img, models)
     kinds = length(models);
     distances = zeros(kinds, 1);
 
