@@ -21,7 +21,8 @@ function models = pca_train(train_sets, norm_size, threshold)
         [u, d, v] = svd(x);
 
         eigenvalues = diag(d).^2;
-        eigenvectors = u(:, 1:threshold);
+        eigenvalues = eigenvalues(1:min(length(eigenvalues), threshold));
+        eigenvectors = u(:, 1:length(eigenvalues));
         models = [
             models
             struct('name', train_set.name, ...

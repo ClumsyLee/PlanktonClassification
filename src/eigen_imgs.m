@@ -1,5 +1,5 @@
 function varargout = eigen_imgs(model)
-    len = size(model.eigenvectors, 2);
+    len = length(model.eigenvalues);
     eigen_imgs = cell(len, 1);
 
     for k = 1:len
