@@ -3,12 +3,14 @@ function models = pca_train(train_sets, norm_size, threshold)
     models = [];
 
     for k = 1:length(train_sets)
+        disp([num2str(k) '/' num2str(length(train_sets))]);
+
         train_set = train_sets(k);
         len = length(train_set.imgs);
 
         x = zeros(dim, len);
         for col = 1:len
-            img = imresize(train_set.imgs{col}, norm_size);
+            img = imresize(imread(train_set.imgs{col}), norm_size);
             img = double(img(:));
             x(:, col) = img / norm(img);  % Normalize the energy.
         end
@@ -18,13 +20,15 @@ function models = pca_train(train_sets, norm_size, threshold)
 
         [u, d, v] = svd(x);
 
+        eigenvalues = diag(d).^2;
+        eigenvectors = u(:, 1:threshold);
         models = [
             models
             struct('name', train_set.name, ...
                    'norm_size', norm_size, ...
                    'avg', avg, ...
-                   'eigenvectors', u, ...
-                   'eigenvalues', diag(d).^2, ...
+                   'eigenvalues', eigenvalues, ...
+                   'eigenvectors', eigenvectors, ...
                    'threshold', threshold)
         ];
     end

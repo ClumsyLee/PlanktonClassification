@@ -15,7 +15,7 @@ function train_set = read_train_set(directory)
         imgs = dir([subdir_path '*.png']);
 
         for m = 1:length(imgs)
-            train_set(k).imgs{m} = imread([subdir_path imgs(m).name]);
+            train_set(k).imgs{m} = [subdir_path imgs(m).name];
         end
     end
 end
