@@ -2,15 +2,23 @@ function models = pca_train(train_sets, norm_size, threshold)
     dim = prod(norm_size);
     models = [];
 
+    total_imgs = 0;
     for k = 1:length(train_sets)
-        disp([num2str(k) '/' num2str(length(train_sets))]);
+        total_imgs = total_imgs + length(train_sets(k).imgs);
+    end
+
+    imgs_now = 0;
+    for k = 1:length(train_sets)
+        disp([num2str(imgs_now) '/' num2str(total_imgs)]);
 
         train_set = train_sets(k);
         len = length(train_set.imgs);
+        imgs_now = imgs_now + len;
 
         x = zeros(dim, len);
         for col = 1:len
-            img = imresize(imread(train_set.imgs{col}), norm_size);
+            img = extract_obj(imread(train_set.imgs{col}));  % Extract object.
+            img = imresize(img, norm_size);  % Normalize size.
             img = double(img(:));
             x(:, col) = img / norm(img);  % Normalize the energy.
         end
