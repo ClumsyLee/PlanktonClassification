@@ -24,18 +24,17 @@ function part = extract_obj(img)
     regions = detectMSERFeatures(img, ...
         'RegionAreaRange', [MIN_AREA, max_area]);
 
-    if length(regions) == 0
+    if isempty(regions)
         % No regions found, just return the original image.
         part = img;
         return
     end
 
     areas = prod(regions.Axes, 2);
-    [value, index] = sort(areas);
+    [~, index] = max(areas);
 
-    % Here we can analyse `value` to decide which one to pick.
     % Now we'll just pick the largest one.
-    region = regions(index(end));
+    region = regions(index);
     x = region.Location(1);
     y = region.Location(2);
     theta = region.Orientation;

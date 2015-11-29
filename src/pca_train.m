@@ -23,10 +23,10 @@ function models = pca_train(train_sets, norm_size, threshold)
             x(:, col) = img / norm(img);  % Normalize the energy.
         end
 
-        avg = mean(x')';
+        avg = mean(x, 2);
         x = x - repmat(avg, [1, len]);
 
-        [u, d, v] = svd(x);
+        [u, d, ~] = svd(x);
 
         eigenvalues = diag(d).^2;
         eigenvalues = eigenvalues(1:min(length(eigenvalues), threshold));

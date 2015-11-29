@@ -15,7 +15,7 @@ function correct_rate = test_model(models, test_sets)
         imgs_now = imgs_now + length(test_set.imgs);
         correct = 0;
 
-        if length(test_set.imgs)
+        if ~isempty(test_set.imgs)
             for k_img = 1:length(test_set.imgs)
                 img = imread(test_set.imgs{k_img});
                 if strcmp(classify_img(img, models), test_set.name)
