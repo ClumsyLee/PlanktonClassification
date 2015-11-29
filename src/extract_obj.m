@@ -20,6 +20,13 @@ function part = extract_obj(img)
         % 'MaxAreaVariation', 0.1, ...
     regions = detectMSERFeatures(img, ...
         'RegionAreaRange', [100, floor(prod(ROI_size) * pi / 4)]);
+
+    if length(regions) == 0
+        % No regions found, just return the original image.
+        part = img;
+        return
+    end
+
     areas = prod(regions.Axes, 2);
     [value, index] = sort(areas);
 
