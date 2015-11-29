@@ -5,8 +5,14 @@ function part = extract_obj(img)
     bw = edge(img, 'Prewitt');
     row = any(bw);
     col = any(bw');
-    upper_left = [find(row, 1), find(col, 1)];
-    lower_right = [find(row, 1, 'last'), find(col, 1, 'last')];
+
+    if ~any(row)  % Not a single edge.
+        upper_left = [1 1];
+        lower_right = [size(img, 2) size(img, 1)];
+    else
+        upper_left = [find(row, 1), find(col, 1)];
+        lower_right = [find(row, 1, 'last'), find(col, 1, 'last')];
+    end
     ROI_size = lower_right - upper_left + [1 1];
 
         % 'ThresholdDelta', 4, ...
