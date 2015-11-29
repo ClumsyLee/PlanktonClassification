@@ -17,12 +17,6 @@ function part = extract_obj(img)
     areas = prod(regions.Axes, 2);
     [value, index] = sort(areas);
 
-    figure;
-    subplot 211
-    imshow(img);
-    hold on
-    plot(regions);
-
     % Here we can analyse `value` to decide which one to pick.
     % Now we'll just pick the largest one.
     region = regions(index(end));
@@ -44,7 +38,4 @@ function part = extract_obj(img)
     y_min = max(1, round(new_y - region.Axes(2) / 2));
     y_max = min(size(img, 1), round(new_y + region.Axes(2) / 2));
     part = img(y_min:y_max, x_min:x_max);
-
-    subplot 212
-    imshow(part);
 end
