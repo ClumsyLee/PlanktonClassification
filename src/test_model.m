@@ -2,10 +2,17 @@ function correct_rate = test_model(models, test_sets)
     kinds = length(models);
     correct_rate = zeros(kinds, 1);
 
+    total_imgs = 0;
+    for k = 1:length(test_sets)
+        total_imgs = total_imgs + length(test_sets(k).imgs);
+    end
+
+    imgs_now = 0;
     for k_test_set = 1:kinds
-        disp([num2str(k_test_set) '/' num2str(length(test_sets))]);
+        disp([num2str(imgs_now) '/' num2str(total_imgs)]);
 
         test_set = test_sets(k_test_set);
+        imgs_now = imgs_now + length(test_set.imgs);
         correct = 0;
 
         if length(test_set.imgs)
