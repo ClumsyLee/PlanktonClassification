@@ -1,4 +1,6 @@
 function part = extract_obj(img)
+    MIN_AREA = 100;
+
     h = size(img, 1);
     w = size(img, 2);
 
@@ -18,8 +20,9 @@ function part = extract_obj(img)
         % 'ThresholdDelta', 4, ...
         % 'ROI', [upper_left, lower_right - upper_left + [1 1]]);
         % 'MaxAreaVariation', 0.1, ...
+    max_area = max(floor(prod(ROI_size) * pi / 4), MIN_AREA + 1);
     regions = detectMSERFeatures(img, ...
-        'RegionAreaRange', [100, floor(prod(ROI_size) * pi / 4)]);
+        'RegionAreaRange', [MIN_AREA, max_area]);
 
     if length(regions) == 0
         % No regions found, just return the original image.
