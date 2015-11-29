@@ -1,5 +1,5 @@
 function distance = class_distance(img, model)
-    img = imresize(img, model.norm_size);
+    img = imresize(extract_obj(img), model.norm_size);
     img = double(img(:));
     img = img / norm(img);  % Normalize the energy.
 
